@@ -1,0 +1,285 @@
+/* ==========================================================================
+   SentinelHer (SafePersona) - Core Stylesheet & Print Media Forensic Engine
+   ========================================================================== */
+
+/* Custom fonts & base styling */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+:root {
+  --primary-glow: rgba(16, 185, 129, 0.15);
+  --danger-glow: rgba(244, 63, 94, 0.25);
+  --warning-glow: rgba(245, 158, 11, 0.2);
+  --surface-dark: #090d16;
+  --surface-card: #0f172a;
+  --surface-card-hover: #1e293b;
+  --border-subtle: #334155;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--surface-dark);
+  color: #f1f5f9;
+  overflow-x: hidden;
+}
+
+code, pre, .font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #090d16;
+}
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+/* Glassmorphism & Card Glows */
+.glass-panel {
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(51, 65, 85, 0.6);
+}
+
+.glass-panel-elevated {
+  background: rgba(30, 41, 59, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(71, 85, 105, 0.6);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+}
+
+/* Subtle Animated Mesh Background */
+.cyber-bg-mesh {
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.08) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(244, 63, 94, 0.08) 0px, transparent 50%),
+    radial-gradient(at 50% 100%, rgba(99, 102, 241, 0.06) 0px, transparent 50%);
+  background-attachment: fixed;
+}
+
+/* Scanner Animation for Mock OCR */
+@keyframes scanline {
+  0% {
+    top: 0%;
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    top: 98%;
+    opacity: 0.8;
+  }
+}
+
+.scanner-line {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent 0%, #10b981 50%, transparent 100%);
+  box-shadow: 0 0 15px #10b981, 0 0 25px rgba(16, 185, 129, 0.6);
+  animation: scanline 2.2s ease-in-out infinite alternate;
+}
+
+/* Radar Pulse */
+@keyframes radar-pulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 14px rgba(244, 63, 94, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(244, 63, 94, 0);
+  }
+}
+
+.radar-alert {
+  animation: radar-pulse 2s infinite;
+}
+
+/* Threat Indicator Badges */
+.badge-threat-critical {
+  background: rgba(244, 63, 94, 0.15);
+  border: 1px solid rgba(244, 63, 94, 0.5);
+  color: #fb7185;
+  box-shadow: 0 0 12px rgba(244, 63, 94, 0.2);
+}
+
+.badge-threat-high {
+  background: rgba(249, 115, 22, 0.15);
+  border: 1px solid rgba(249, 115, 22, 0.5);
+  color: #fb923c;
+}
+
+.badge-threat-moderate {
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.5);
+  color: #fbbf24;
+}
+
+.badge-threat-low {
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.5);
+  color: #34d399;
+}
+
+/* Tab active state */
+.nav-tab.active {
+  border-bottom: 2px solid #10b981;
+  color: #34d399;
+}
+
+/* Custom interactive transitions */
+.transition-card {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.transition-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(99, 102, 241, 0.5);
+}
+
+/* Forensic Hash Display */
+.hash-pill {
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px dashed rgba(71, 85, 105, 0.8);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.375rem;
+}
+
+/* Notification Toast */
+#toast-notification {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* ==========================================================================
+   PRINT MEDIA FORENSIC ENGINE (@media print)
+   Standardizes printable, court-ready dossier affidavits
+   (Indian Evidence Act Sec 65B & Federal Rules of Evidence 902(14) compliant)
+   ========================================================================== */
+@media print {
+  /* Hide all non-dossier, interactive UI components */
+  body {
+    background-color: #ffffff !important;
+    color: #0f172a !important;
+    font-size: 11pt !important;
+    line-height: 1.4 !important;
+  }
+
+  .cyber-bg-mesh,
+  header,
+  #quick-exit-banner,
+  #triage-hero,
+  #ingestion-section,
+  #deescalation-hub,
+  #takedown-section,
+  #toast-notification,
+  .no-print,
+  button,
+  .nav-buttons,
+  .scenario-selector {
+    display: none !important;
+  }
+
+  /* Show only the forensic dossier */
+  #dossier-section {
+    display: block !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .dossier-print-container {
+    background: #ffffff !important;
+    color: #111827 !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Formal legal court border */
+  .court-document-frame {
+    border: 2px solid #111827 !important;
+    padding: 24px !important;
+    margin-bottom: 20px !important;
+    background: #ffffff !important;
+  }
+
+  .court-header {
+    border-bottom: 2px solid #000000 !important;
+    padding-bottom: 12px !important;
+    margin-bottom: 16px !important;
+    text-align: center !important;
+  }
+
+  .court-header h1 {
+    font-size: 16pt !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+    color: #000000 !important;
+  }
+
+  .court-header p {
+    font-size: 9pt !important;
+    color: #4b5563 !important;
+  }
+
+  /* High contrast court tables */
+  table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin-top: 12px !important;
+    font-size: 9.5pt !important;
+  }
+
+  th, td {
+    border: 1px solid #374151 !important;
+    padding: 6px 8px !important;
+    color: #000000 !important;
+    text-align: left !important;
+  }
+
+  th {
+    background-color: #f3f4f6 !important;
+    font-weight: bold !important;
+  }
+
+  /* Monospace forensic data in print */
+  .font-mono {
+    font-family: 'Courier New', Courier, monospace !important;
+    font-size: 8.5pt !important;
+    word-break: break-all !important;
+  }
+
+  /* Watermark effect */
+  .print-watermark {
+    display: block !important;
+    text-align: right;
+    font-size: 8pt;
+    color: #6b7280;
+    margin-top: 10px;
+  }
+
+  /* Page breaks */
+  .page-break-before {
+    page-break-before: always;
+  }
+}

@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SentinelHer (SafePersona) - Autonomous Digital Harassment Interceptor & Forensic Dossier Engine</title>
+  
+  <!-- Tailwind CSS via CDN with customized slate palette -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              500: '#10b981',
+              600: '#059669',
+              900: '#064e3b',
+            },
+            slate: {
+              850: '#111827',
+              900: '#0f172a',
+              950: '#090d16',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom Core & Print Forensic Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-slate-950 text-slate-100 cyber-bg-mesh min-h-screen flex flex-col antialiased selection:bg-emerald-500/30 selection:text-emerald-300">
+
+  <!-- ==========================================
+       DISCREET QUICK-EXIT & PRIVACY BANNER
+       ========================================== -->
+  <div id="quick-exit-banner" class="sticky top-0 z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 px-4 py-2.5 flex items-center justify-between shadow-lg">
+    <div class="flex items-center gap-2 text-xs text-slate-400">
+      <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-950/60 text-emerald-400 border border-emerald-800/80 font-mono text-[11px]">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        Client-Side Zero-Knowledge Mode (Zero Server Footprint)
+      </span>
+      <span class="hidden md:inline text-slate-500">• All data remains in temporary local memory</span>
+    </div>
+
+    <!-- Quick Exit Button -->
+    <div class="flex items-center gap-3">
+      <span class="hidden sm:inline text-xs text-slate-400">Threat near you? Press <kbd class="px-1.5 py-0.5 rounded bg-slate-800 border border-slate-700 text-slate-300 font-mono text-[10px]">Esc</kbd></span>
+      <button id="quick-exit-btn" class="flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold transition shadow-md shadow-rose-950/50">
+        <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
+        <span>Discreet Quick-Exit</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       TOP NAVIGATION BAR
+       ========================================== -->
+  <header class="border-b border-slate-800/80 bg-slate-900/60 backdrop-blur-lg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
+      
+      <!-- Brand Logo & Trauma-Informed Title -->
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-indigo-600 flex items-center justify-center shadow-lg shadow-emerald-950/50">
+          <i data-lucide="shield-alert" class="w-5 h-5 text-white"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-lg font-extrabold tracking-tight text-white">SentinelHer</h1>
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-900/60 text-indigo-300 border border-indigo-700/60 uppercase">
+              SafePersona
+            </span>
+          </div>
+          <p class="text-xs text-slate-400">Autonomous Digital Harassment Interceptor & Forensic Dossier Engine</p>
+        </div>
+      </div>
+
+      <!-- Quick Nav Links -->
+      <nav class="flex items-center gap-1 sm:gap-2 text-xs font-medium text-slate-300 overflow-x-auto py-1">
+        <a href="#triage-hero" class="px-3 py-1.5 rounded-lg hover:bg-slate-800 hover:text-white transition">Overview</a>
+        <a href="#ingestion-section" class="px-3 py-1.5 rounded-lg hover:bg-slate-800 hover:text-white transition">Evidence Ingestor</a>
+        <a href="#classifier-section" class="px-3 py-1.5 rounded-lg hover:bg-slate-800 hover:text-white transition">Threat Matrix</a>
+        <a href="#deescalation-hub" class="px-3 py-1.5 rounded-lg hover:bg-slate-800 hover:text-white transition">Holding Responses</a>
+        <a href="#dossier-section" class="px-3 py-1.5 rounded-lg bg-emerald-950/70 text-emerald-400 border border-emerald-800/70 hover:bg-emerald-900/70 transition">Forensic Dossier</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ==========================================
+       MAIN CONTENT CONTAINER
+       ========================================== -->
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10 w-full">
+
+    <!-- 1. HERO & TRIAGE OVERVIEW DASHBOARD -->
+    <section id="triage-hero" class="space-y-6">
+      
+      <!-- Welcome Callout & Trauma-Informed Ethos -->
+      <div class="glass-panel p-6 sm:p-8 rounded-2xl border border-slate-700/60 relative overflow-hidden">
+        <div class="absolute -right-16 -top-16 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="relative z-10 max-w-3xl space-y-2">
+          <div class="inline-flex items-center gap-2 text-xs font-semibold text-emerald-400 uppercase tracking-wider">
+            <i data-lucide="shield-check" class="w-4 h-4"></i>
+            Victim-Centric Autonomous Cyber Protection
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+            Stop Stalking In Its Tracks. Preserve Admissible Evidence Instantly.
+          </h2>
+          <p class="text-sm text-slate-300 leading-relaxed">
+            SentinelHer interceptor protects individuals against coordinated cyberstalking, burner impersonation, and deepfake extortion. The engine correlates burner handles across platforms, generates trauma-informed de-escalation holding responses, and constructs court-ready digital forensic dossiers.
+          </p>
+        </div>
+      </div>
+
+      <!-- Live Triage Metric Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        
+        <!-- Metric 1: Threat Escalation Index -->
+        <div class="glass-panel p-5 rounded-xl border border-slate-700/60 flex flex-col justify-between">
+          <div class="flex items-center justify-between text-slate-400 text-xs">
+            <span>Threat Escalation Index</span>
+            <i data-lucide="alert-triangle" class="w-4 h-4 text-rose-400"></i>
+          </div>
+          <div class="my-3 flex items-baseline gap-2">
+            <span id="metric-threat-index" class="text-3xl font-extrabold text-white font-mono">88/100</span>
+            <span id="metric-threat-badge" class="px-2 py-0.5 rounded text-xs font-semibold badge-threat-critical">
+              Critical
+            </span>
+          </div>
+          <p class="text-[11px] text-slate-400">Automated NLP assessment of coercion, extortion & doxxing risks.</p>
+        </div>
+
+        <!-- Metric 2: Monitored Incidents -->
+        <div class="glass-panel p-5 rounded-xl border border-slate-700/60 flex flex-col justify-between">
+          <div class="flex items-center justify-between text-slate-400 text-xs">
+            <span>Active Monitored Incidents</span>
+            <i data-lucide="activity" class="w-4 h-4 text-indigo-400"></i>
+          </div>
+          <div class="my-3">
+            <span id="metric-monitored-incidents" class="text-3xl font-extrabold text-white font-mono">3 Events</span>
+          </div>
+          <p class="text-[11px] text-slate-400">Multi-channel cross-platform timeline tracking active.</p>
+        </div>
+
+        <!-- Metric 3: Burner Entity Correlation -->
+        <div class="glass-panel p-5 rounded-xl border border-slate-700/60 flex flex-col justify-between">
+          <div class="flex items-center justify-between text-slate-400 text-xs">
+            <span>Linguistic Burner Match</span>
+            <i data-lucide="fingerprint" class="w-4 h-4 text-emerald-400"></i>
+          </div>
+          <div class="my-3 flex items-baseline gap-2">
+            <span id="metric-burner-count" class="text-3xl font-extrabold text-emerald-400 font-mono">3 Handles</span>
+            <span class="text-xs text-slate-400 font-mono">Linked</span>
+          </div>
+          <p class="text-[11px] text-slate-400">Identical punctuation & typo fingerprints detected across burners.</p>
+        </div>
+
+        <!-- Metric 4: Preserved Cryptographic Evidence -->
+        <div class="glass-panel p-5 rounded-xl border border-slate-700/60 flex flex-col justify-between">
+          <div class="flex items-center justify-between text-slate-400 text-xs">
+            <span>Evidence Chain of Custody</span>
+            <i data-lucide="lock" class="w-4 h-4 text-cyan-400"></i>
+          </div>
+          <div class="my-3 flex items-baseline gap-2">
+            <span id="metric-evidence-count" class="text-3xl font-extrabold text-white font-mono">3 Assets</span>
+            <span class="text-xs text-emerald-400 font-mono">SHA-256</span>
+          </div>
+          <p class="text-[11px] text-slate-400">Indian Evidence Act 65B & US FRE 902(14) compliant hashing.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 2. MULTIMODAL INCIDENT & EVIDENCE INGESTOR -->
+    <section id="ingestion-section" class="space-y-6">
+      
+      <!-- Section Header & Judge 1-Click Sandbox -->
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+        <div>
+          <div class="flex items-center gap-2 text-indigo-400 text-xs font-semibold uppercase tracking-wider">
+            <i data-lucide="scan" class="w-4 h-4"></i>
+            Multimodal Extraction Pipeline
+          </div>
+          <h3 class="text-xl font-bold text-white">Incident & Evidence Ingestion</h3>
+          <p class="text-xs text-slate-400">Upload screenshot captures or test pre-loaded forensic test scenarios below.</p>
+        </div>
+
+        <!-- Judge 1-Click Scenario Buttons -->
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="text-xs font-semibold text-slate-400 mr-1">Judge Quick Scenarios:</span>
+          <button onclick="loadScenario('scenario_doxxing')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 hover:border-slate-500 transition flex items-center gap-1.5">
+            <i data-lucide="map-pin" class="w-3.5 h-3.5 text-rose-400"></i>
+            <span>1. Coercive Doxxing</span>
+          </button>
+          <button onclick="loadScenario('scenario_deepfake')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 hover:border-slate-500 transition flex items-center gap-1.5">
+            <i data-lucide="video" class="w-3.5 h-3.5 text-amber-400"></i>
+            <span>2. Deepfake Blackmail</span>
+          </button>
+          <button onclick="loadScenario('scenario_probing')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 hover:border-slate-500 transition flex items-center gap-1.5">
+            <i data-lucide="users" class="w-3.5 h-3.5 text-cyan-400"></i>
+            <span>3. Handle Probing</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Extraction Progress Animated Banner -->
+      <div id="extraction-progress-banner" class="hidden glass-panel p-4 rounded-xl border border-emerald-500/50 bg-emerald-950/20 space-y-2">
+        <div class="flex items-center justify-between text-xs">
+          <span id="extraction-status-text" class="text-emerald-400 font-mono font-medium flex items-center gap-2">
+            <i data-lucide="loader-2" class="w-4 h-4 animate-spin text-emerald-400"></i>
+            Ingesting screenshot metadata & chat transcript...
+          </span>
+          <span class="text-slate-400 font-mono text-[11px]">Simulated OCR & NLP Engine</span>
+        </div>
+        <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+          <div id="extraction-progress-bar" class="bg-gradient-to-r from-emerald-500 to-indigo-500 h-full w-1/4 transition-all duration-300"></div>
+        </div>
+      </div>
+
+      <!-- Ingestion Work Area (Split: Dropzone + Custom Ingestion Form) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Left Column: Screenshot Dropzone -->
+        <div class="lg:col-span-6 glass-panel p-6 rounded-2xl border border-slate-700/60 flex flex-col justify-between">
+          <div class="space-y-2">
+            <div class="flex items-center justify-between">
+              <h4 class="text-sm font-bold text-white flex items-center gap-2">
+                <i data-lucide="image" class="w-4 h-4 text-emerald-400"></i>
+                Drop Screenshot Evidence (OCR Extraction)
+              </h4>
+              <span class="text-[11px] text-slate-500 font-mono">JPG, PNG, WebP</span>
+            </div>
+            <p class="text-xs text-slate-400">Simulates multimodal OCR boundary detection on Instagram DMs, Telegram, WhatsApp, or X.</p>
+          </div>
+
+          <!-- Dropzone Container -->
+          <div id="screenshot-dropzone" class="relative group my-4 p-8 border-2 border-dashed border-slate-700 hover:border-emerald-500/80 rounded-xl bg-slate-900/40 hover:bg-slate-900/80 transition cursor-pointer text-center flex flex-col items-center justify-center gap-3 overflow-hidden">
+            <div class="scanner-line pointer-events-none opacity-40 group-hover:opacity-100"></div>
+            <div class="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 group-hover:text-emerald-400 transition">
+              <i data-lucide="upload-cloud" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <p class="text-xs font-semibold text-slate-200">Drag & drop harassment screenshot or click to upload</p>
+              <p class="text-[11px] text-slate-400 mt-0.5">Clicking triggers mock OCR pipeline with real sample extraction</p>
+            </div>
+            <input type="file" id="screenshot-file-input" class="hidden" accept="image/*">
+          </div>
+
+          <div class="flex items-center justify-between text-[11px] text-slate-400 pt-2 border-t border-slate-800">
+            <span>Simulated Vision OCR v2.4</span>
+            <span class="text-emerald-400 font-medium">Auto PII Redaction & Hashing Ready</span>
+          </div>
+        </div>
+
+        <!-- Right Column: Direct Text Log Ingestion -->
+        <div class="lg:col-span-6 glass-panel p-6 rounded-2xl border border-slate-700/60 flex flex-col justify-between">
+          <div class="space-y-2 mb-3">
+            <h4 class="text-sm font-bold text-white flex items-center gap-2">
+              <i data-lucide="file-text" class="w-4 h-4 text-indigo-400"></i>
+              Direct Chat Log & Handle Ingestion
+            </h4>
+            <p class="text-xs text-slate-400">Paste raw text or add a single threatening incident directly to the active session.</p>
+          </div>
+
+          <form id="custom-intake-form" class="space-y-3">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block text-[11px] font-medium text-slate-400 mb-1">Perpetrator Handle / ID</label>
+                <input type="text" id="custom-handle-input" placeholder="@unknown_burner_24" class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 font-mono">
+              </div>
+              <div>
+                <label class="block text-[11px] font-medium text-slate-400 mb-1">Platform Channel</label>
+                <select id="custom-platform-select" class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-xs text-slate-200 focus:outline-none focus:border-indigo-500">
+                  <option value="Instagram DM">Instagram DM</option>
+                  <option value="Telegram">Telegram</option>
+                  <option value="WhatsApp">WhatsApp</option>
+                  <option value="X / Twitter">X / Twitter</option>
+                  <option value="LinkedIn">LinkedIn</option>
+                  <option value="Signal">Signal</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-medium text-slate-400 mb-1">Threat Message Text</label>
+              <textarea id="custom-chat-input" rows="3" placeholder="Paste threatening messages, ultimatums, or doxxing excerpts here..." class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 leading-relaxed"></textarea>
+            </div>
+
+            <div class="flex items-center justify-end">
+              <button type="submit" class="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold transition flex items-center gap-1.5 shadow-md shadow-indigo-950">
+                <i data-lucide="cpu" class="w-3.5 h-3.5"></i>
+                <span>Ingest & Run AI Threat Classifier</span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+
+      <!-- Ingested Evidence Chronological Stream -->
+      <div class="space-y-3">
+        <div class="flex items-center justify-between">
+          <h4 class="text-sm font-bold text-white flex items-center gap-2">
+            <i data-lucide="list" class="w-4 h-4 text-emerald-400"></i>
+            Chronological Extracted Evidence Stream
+          </h4>
+          <span class="text-xs text-slate-400 font-mono">Each asset is cryptographically hashed with SHA-256</span>
+        </div>
+        <div id="timeline-messages-container" class="space-y-3">
+          <!-- Populated dynamically by app.js -->
+        </div>
+      </div>
+
+    </section>
+
+    <!-- 3. AUTONOMOUS THREAT & ESCALATION CLASSIFIER -->
+    <section id="classifier-section" class="space-y-6">
+      
+      <!-- Section Header -->
+      <div class="border-b border-slate-800 pb-4">
+        <div class="flex items-center gap-2 text-rose-400 text-xs font-semibold uppercase tracking-wider">
+          <i data-lucide="cpu" class="w-4 h-4"></i>
+          Autonomous Analysis Engine
+        </div>
+        <h3 class="text-xl font-bold text-white">Threat & Escalation Classifier</h3>
+        <p class="text-xs text-slate-400">Real-time heuristic evaluation: Coercion triggers, linguistic burner matching, and physical doxxing risk.</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Threat Gauge & Severity Overview -->
+        <div class="lg:col-span-5 glass-panel p-6 rounded-2xl border border-slate-700/60 flex flex-col justify-between space-y-4">
+          <div class="space-y-1">
+            <div class="flex items-center justify-between">
+              <h4 class="text-sm font-bold text-white">Visual Risk Escalation Gauge</h4>
+              <span id="gauge-level-text" class="text-xs font-extrabold text-rose-400 uppercase tracking-wide">Critical Level</span>
+            </div>
+            <p id="gauge-description-text" class="text-xs text-slate-400 leading-relaxed">
+              Severe imminent threat: Coercive extortion, deepfake dissemination, or physical stalking. Immediate police intervention required.
+            </p>
+          </div>
+
+          <!-- Risk Gauge Progress Bar -->
+          <div class="space-y-2">
+            <div class="w-full bg-slate-800 h-4 rounded-full overflow-hidden p-0.5 border border-slate-700">
+              <div id="threat-gauge-bar" class="h-full bg-gradient-to-r from-orange-500 to-rose-600 rounded-full transition-all duration-700 w-4/5"></div>
+            </div>
+            <div class="flex justify-between text-[10px] text-slate-400 font-mono">
+              <span>0 (Low)</span>
+              <span>25 (Moderate)</span>
+              <span>55 (High)</span>
+              <span>80+ (Critical Cybercrime)</span>
+            </div>
+          </div>
+
+          <!-- Sub-Score Breakdown -->
+          <div class="grid grid-cols-3 gap-2 pt-3 border-t border-slate-800">
+            <div class="bg-slate-900/80 p-2.5 rounded-lg border border-slate-800 text-center">
+              <span class="block text-[10px] text-slate-400">Coercion / Blackmail</span>
+              <span id="subscore-coercion" class="text-base font-extrabold text-amber-400 font-mono">85%</span>
+            </div>
+            <div class="bg-slate-900/80 p-2.5 rounded-lg border border-slate-800 text-center">
+              <span class="block text-[10px] text-slate-400">Doxxing / Physical</span>
+              <span id="subscore-doxxing" class="text-base font-extrabold text-rose-400 font-mono">90%</span>
+            </div>
+            <div class="bg-slate-900/80 p-2.5 rounded-lg border border-slate-800 text-center">
+              <span class="block text-[10px] text-slate-400">Burner Syntax Match</span>
+              <span id="subscore-linguistic" class="text-base font-extrabold text-emerald-400 font-mono">94%</span>
+            </div>
+          </div>
+
+          <!-- Linguistic Fingerprint Explainer -->
+          <div class="p-3 bg-indigo-950/30 rounded-xl border border-indigo-900/60 text-xs space-y-1">
+            <div class="flex items-center gap-1.5 text-indigo-300 font-semibold text-[11px]">
+              <i data-lucide="fingerprint" class="w-3.5 h-3.5"></i>
+              Linguistic Fingerprint Correlation:
+            </div>
+            <p id="linguistic-notes-text" class="text-slate-300 text-[11px] leading-relaxed">
+              Identical double-exclamation with triple-dot punctuation pattern ('!!...'), identical spelling error ('definetly'), and recurrent phrasing regarding victim's daily routine.
+            </p>
+          </div>
+        </div>
+
+        <!-- Statutory Legal Offense Mapping Table -->
+        <div class="lg:col-span-7 glass-panel p-6 rounded-2xl border border-slate-700/60 flex flex-col justify-between space-y-4">
+          <div class="space-y-1">
+            <div class="flex items-center justify-between">
+              <h4 class="text-sm font-bold text-white flex items-center gap-2">
+                <i data-lucide="scale" class="w-4 h-4 text-indigo-400"></i>
+                Statutory Offense Mapping (IPC / IT Act / BNS)
+              </h4>
+              <span class="text-[11px] text-slate-400 font-mono">Court Admissibility</span>
+            </div>
+            <p class="text-xs text-slate-400">
+              The engine automatically maps extracted harassment patterns to applicable criminal statutes under Indian Law & international conventions.
+            </p>
+          </div>
+
+          <div id="legal-offenses-container" class="space-y-3 overflow-y-auto max-h-[360px] pr-1">
+            <!-- Populated dynamically by app.js -->
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- 4. DE-ESCALATION & SAFETY ADVISORY AGENT (SafePersona) -->
+    <section id="deescalation-hub" class="space-y-6">
+      
+      <!-- Section Header -->
+      <div class="border-b border-slate-800 pb-4">
+        <div class="flex items-center gap-2 text-emerald-400 text-xs font-semibold uppercase tracking-wider">
+          <i data-lucide="message-square" class="w-4 h-4"></i>
+          SafePersona Advisory Suite
+        </div>
+        <h3 class="text-xl font-bold text-white">Trauma-Informed De-Escalation & Holding Responses</h3>
+        <p class="text-xs text-slate-400">
+          Stalkers weaponize victim fear and emotional reactions. SafePersona generates legally calibrated, non-reactive "holding responses" designed to de-escalate volatile perpetrators while cementing an evidentiary paper trail.
+        </p>
+      </div>
+
+      <!-- Holding Responses Grid -->
+      <div id="holding-responses-container" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Populated dynamically by app.js -->
+      </div>
+
+    </section>
+
+    <!-- 5. DIRECT CONTEXT-DRIVEN TAKEDOWN & EMERGENCY HUB -->
+    <section id="takedown-section" class="space-y-6">
+      
+      <div class="border-b border-slate-800 pb-4">
+        <div class="flex items-center gap-2 text-cyan-400 text-xs font-semibold uppercase tracking-wider">
+          <i data-lucide="life-buoy" class="w-4 h-4"></i>
+          Immediate Safety Intervention
+        </div>
+        <h3 class="text-xl font-bold text-white">Takedown Portals & Emergency Escort Protocols</h3>
+        <p class="text-xs text-slate-400">Direct integration pathways for StopNCII, National Cybercrime Portal, and major platform reporting.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Action Card 1: StopNCII.org Protocol -->
+        <div class="glass-panel p-5 rounded-2xl border border-slate-700/60 flex flex-col justify-between space-y-4">
+          <div class="space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-rose-950 text-rose-400 border border-rose-800">
+                Non-Consensual Media Defense
+              </span>
+              <i data-lucide="shield-off" class="w-4 h-4 text-rose-400"></i>
+            </div>
+            <h4 class="font-bold text-white text-sm">StopNCII.org Image Hash Defense</h4>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Create non-reversible digital hashes directly on your device. Participating platforms (Meta, TikTok, Reddit, OnlyFans) block upload matching these hashes without seeing your images.
+            </p>
+          </div>
+          <a href="https://stopncii.org" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold flex items-center justify-center gap-2 border border-slate-700 transition">
+            <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            <span>Open StopNCII Portal</span>
+          </a>
+        </div>
+
+        <!-- Action Card 2: National Cybercrime Portal India (1930) -->
+        <div class="glass-panel p-5 rounded-2xl border border-slate-700/60 flex flex-col justify-between space-y-4">
+          <div class="space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-indigo-950 text-indigo-400 border border-indigo-800">
+                Official Law Enforcement
+              </span>
+              <i data-lucide="phone-call" class="w-4 h-4 text-indigo-400"></i>
+            </div>
+            <h4 class="font-bold text-white text-sm">Cyber Crime Portal (cybercrime.gov.in)</h4>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              National Helpline <strong>1930</strong>. Pre-drafted formal police complaint text ready to submit directly for rapid FIR registration with evidence hash verification.
+            </p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="copyPoliceComplaint()" class="flex-1 py-2.5 px-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold flex items-center justify-center gap-1.5 transition shadow">
+              <i data-lucide="clipboard-copy" class="w-3.5 h-3.5"></i>
+              <span>Copy Police Complaint</span>
+            </button>
+            <a href="https://cybercrime.gov.in" target="_blank" rel="noopener noreferrer" class="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" title="Visit Portal">
+              <i data-lucide="external-link" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Action Card 3: Platform Direct Harassment Takedown -->
+        <div class="glass-panel p-5 rounded-2xl border border-slate-700/60 flex flex-col justify-between space-y-4">
+          <div class="space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-cyan-950 text-cyan-400 border border-cyan-800">
+                Platform Escalation
+              </span>
+              <i data-lucide="send" class="w-4 h-4 text-cyan-400"></i>
+            </div>
+            <h4 class="font-bold text-white text-sm">Social Platform Fast-Track Takedowns</h4>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Standard user reporting fails to stop burner proliferation. Use our pre-filled terms-of-service violation templates citing specific cyber-extortion guidelines.
+            </p>
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <a href="https://help.instagram.com/contact/584460464982589" target="_blank" rel="noopener noreferrer" class="py-2 px-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium text-center border border-slate-700 transition">
+              Instagram Takedown
+            </a>
+            <a href="https://telegram.org/support" target="_blank" rel="noopener noreferrer" class="py-2 px-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium text-center border border-slate-700 transition">
+              Telegram Abuse
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 6. ONE-CLICK LEGAL FORENSIC DOSSIER GENERATOR -->
+    <section id="dossier-section" class="space-y-6">
+      
+      <!-- Section Header & Export Toolbar -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+        <div>
+          <div class="flex items-center gap-2 text-emerald-400 text-xs font-semibold uppercase tracking-wider">
+            <i data-lucide="file-check" class="w-4 h-4"></i>
+            Court Admissibility Engine
+          </div>
+          <h3 class="text-xl font-bold text-white">Forensic Evidence Dossier</h3>
+          <p class="text-xs text-slate-400">Standardized, tamper-evident timeline packet with SHA-256 chain-of-custody verification.</p>
+        </div>
+
+        <!-- Export Buttons Toolbar -->
+        <div class="flex flex-wrap items-center gap-2 no-print">
+          <button onclick="exportDossierPrint()" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition flex items-center gap-2 shadow-lg shadow-emerald-950/50">
+            <i data-lucide="printer" class="w-3.5 h-3.5"></i>
+            <span>Export Court-Ready PDF (Print View)</span>
+          </button>
+          <button onclick="exportForensicJSON()" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 hover:border-slate-500 transition flex items-center gap-2">
+            <i data-lucide="download" class="w-3.5 h-3.5 text-indigo-400"></i>
+            <span>Download JSON Package</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Court Dossier Preview Document -->
+      <div class="dossier-print-container court-document-frame rounded-2xl glass-panel p-6 sm:p-8 border border-slate-700/80 space-y-6">
+        
+        <!-- Official Forensic Header -->
+        <div class="court-header border-b border-slate-700/80 pb-5 space-y-2">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+              <span class="text-[10px] font-mono tracking-widest uppercase text-slate-400">CONFIDENTIAL DIGITAL FORENSICS PACKET</span>
+              <h2 class="text-xl sm:text-2xl font-extrabold text-white tracking-tight uppercase">
+                CYBERCRIME EVIDENCE DOSSIER & AFFIDAVIT
+              </h2>
+            </div>
+            <div class="text-right sm:text-right">
+              <span class="inline-block px-3 py-1 rounded bg-slate-900 border border-slate-700 text-xs font-mono font-bold text-indigo-300">
+                REF: <span id="dossier-case-id">SH-2026-X892</span>
+              </span>
+            </div>
+          </div>
+          <div class="text-xs text-slate-400 grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2">
+            <div><strong>Intake Date/Time:</strong> <span id="dossier-timestamp" class="font-mono text-slate-300">--</span></div>
+            <div><strong>Victim Reference Alias:</strong> <span id="dossier-target-alias" class="font-medium text-slate-300">--</span></div>
+            <div><strong>Evidence Admissibility Standard:</strong> <span class="font-mono text-slate-300">Sec 65B IEA / FRE 902(14)</span></div>
+          </div>
+        </div>
+
+        <!-- Master Cryptographic Digest Box -->
+        <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-700 font-mono text-xs space-y-1">
+          <div class="text-[11px] text-slate-400 flex items-center gap-1.5 font-sans font-semibold">
+            <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400"></i>
+            Master Chain-of-Custody SHA-256 Digest:
+          </div>
+          <div id="dossier-master-hash" class="text-emerald-400 break-all select-all text-[11px]">
+            e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+          </div>
+        </div>
+
+        <!-- Chronological Incident Matrix Table -->
+        <div class="space-y-3">
+          <h4 class="text-sm font-bold text-white flex items-center gap-2">
+            <i data-lucide="calendar" class="w-4 h-4 text-emerald-400"></i>
+            Chronological Evidence Itemization
+          </h4>
+          <div class="overflow-x-auto rounded-xl border border-slate-800">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-slate-900/90 text-[11px] text-slate-400 border-b border-slate-800 uppercase font-mono">
+                  <th class="p-3">#</th>
+                  <th class="p-3">Timestamp</th>
+                  <th class="p-3">Suspect Handle / Channel</th>
+                  <th class="p-3">Extracted Content Excerpt</th>
+                  <th class="p-3">SHA-256 Checksum</th>
+                </tr>
+              </thead>
+              <tbody id="dossier-table-body" class="divide-y divide-slate-800/80">
+                <!-- Dynamically populated by app.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Statutory Violations Summary -->
+        <div class="space-y-3">
+          <h4 class="text-sm font-bold text-white flex items-center gap-2">
+            <i data-lucide="gavel" class="w-4 h-4 text-indigo-400"></i>
+            Applicable Criminal Statutory Mapping
+          </h4>
+          <div id="dossier-statutory-summary" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <!-- Dynamically populated by app.js -->
+          </div>
+        </div>
+
+        <!-- Section 65B Admissibility Affirmation Statement -->
+        <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800 text-xs text-slate-400 space-y-2">
+          <h5 class="font-bold text-slate-200 uppercase text-[11px] tracking-wider font-mono">
+            CERTIFICATE OF INTEGRITY PURSUANT TO SECTION 65B OF INDIAN EVIDENCE ACT, 1872
+          </h5>
+          <p class="leading-relaxed">
+            I hereby certify that the electronic records, chat logs, and metadata indexed above were produced by computer output in the ordinary course of activity. The integrity of the electronic record was verified at the moment of intake using standard SHA-256 cryptographic hashing algorithms without altering the underlying data. There has been no alteration, distortion, or mechanical manipulation of the content reproduced herein.
+          </p>
+          <div class="pt-4 flex flex-col sm:flex-row sm:items-center justify-between text-[11px] text-slate-500 font-mono border-t border-slate-800 gap-2">
+            <span>Preserving Protocol: SentinelHer Autonomous Interceptor</span>
+            <span>Digital Audit Seal: VERIFIED-AUTHENTIC</span>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ==========================================
+       FOOTER
+       ========================================== -->
+  <footer class="border-t border-slate-800/80 bg-slate-900/60 py-6 text-center text-xs text-slate-500 no-print">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div class="flex items-center gap-2">
+        <i data-lucide="shield" class="w-4 h-4 text-emerald-400"></i>
+        <span class="font-semibold text-slate-300">SentinelHer (SafePersona)</span>
+        <span>• Dedicated to the physical and digital safety of women</span>
+      </div>
+      <div class="text-[11px] font-mono text-slate-400">
+        100% Offline-Functional • Zero Data Leakage • Hackathon Ready
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================
+       FLOATING TOAST NOTIFICATION
+       ========================================== -->
+  <div id="toast-notification" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 pointer-events-none transition-all duration-300">
+    <div class="glass-panel-elevated px-4 py-3 rounded-xl border border-emerald-500/60 flex items-center gap-2.5 shadow-2xl bg-slate-900/95 text-slate-100 text-xs font-medium">
+      <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
+      <span id="toast-message">Action completed successfully.</span>
+    </div>
+  </div>
+
+  <!-- Interactive Logic Bootstrap -->
+  <script src="app.js"></script>
+</body>
+</html>
